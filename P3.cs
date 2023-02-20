@@ -17,11 +17,28 @@ class P3
     public static void Main(String[] args)
     {
         DataFilter testFilter = new DataFilter(89);
-        testFilter.SetSequence(new int[] { 50, 70, 100, 120 });
 
+        TestFilter(testFilter);
+
+        testFilter.scramble(new int[] { 100, 90, 60, 70, 50, 120 });
         TestFilter(testFilter);
         testFilter.FlipState();
         TestFilter(testFilter);
+
+        testFilter.scramble();
+        TestFilter(testFilter);
+        testFilter.FlipState();
+        TestFilter(testFilter);
+
+        DataMod testMod = new DataMod(89);
+        testMod.scramble(new int[] { 90, 61, 13, 71, 83, 120 });
+        testMod.FlipState();
+        testMod.filter();
+        TestFilter(testMod);
+
+
+
+
 
 
 

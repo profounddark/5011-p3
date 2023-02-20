@@ -5,10 +5,10 @@ class DataFilter
         Large,
         Small
     }
-    const uint DefaultPrimeNumber = 97;
+    protected const uint DefaultPrimeNumber = 97;
 
     protected uint _primeNumber;
-    protected int[] _dataSequence;
+    protected int[]? _dataSequence;
 
     protected FilterState _currentState;
 
@@ -20,7 +20,7 @@ class DataFilter
     /// </summary>
     /// <param name="testNumber">the positive integer to be tested</param>
     /// <returns><c>true</c> if the number is prime, <c>false</c> otherwise</returns>
-    private bool _isPrime(uint testNumber)
+    protected bool _isPrime(uint testNumber)
     {
         for (uint i = 2; i < testNumber; i++)
         {
@@ -31,16 +31,6 @@ class DataFilter
         }
 
         return true;
-    }
-
-    /// <summary>
-    /// hasSequence returns whether or not the DataFilter object current
-    /// has an integer sequence loaded into the object.
-    /// </summary>
-    /// <returns>true if a sequence is loaded, false otherwise</returns>
-    private bool _hasSequence()
-    {
-        return (_dataSequence.Length != 0);
     }
 
     /// <summary>
@@ -60,7 +50,7 @@ class DataFilter
         }
 
         // "null" value for sequence is a 0 length array
-        _dataSequence = new int[0];
+        _dataSequence = null;
 
         // set to a State of "Large"
         _currentState = FilterState.Large;
@@ -128,13 +118,8 @@ class DataFilter
     /// DataFilter object.</returns>
     public virtual int[] filter()
     {
-        if (_dataSequence.Length == 0)
-        {
-            int[] returnArray = new int[1];
-            returnArray[0] = (int)_primeNumber;
-            return returnArray;
-        }
-        else
+        // if it has an embedded sequence
+        if (_dataSequence != null)
         {
             int[] returnArray = new int[_dataSequence.Length];
             int itemCount = 0;
@@ -167,7 +152,58 @@ class DataFilter
 
             return returnArray;
         }
+        // does not have an embedded sequence
+        else
+        {
+
+            int[] returnArray = new int[1];
+            returnArray[0] = (int)_primeNumber;
+            return returnArray;
+
+        }
     }
+
+    /// <summary>
+    /// scramble assigns a new sequence to the DataFilter object, if one is provided.
+    /// It then proceeds to scramble the values in the DataFilter object based on
+    /// the current state of the object.
+    /// </summary>
+    /// <param name="newSequence">a new integer array to assign to the DataFilter
+    /// object</param>
+    public virtual void scramble(int[]? newSequence = null)
+    {
+        // set the new sequence if it's valid
+        if (newSequence != null)
+        {
+            _dataSequence = newSequence;
+        }
+
+        if (_dataSequence != null)
+        {
+            for (int i = 0; i < _dataSequence.Length / 2; i++)
+            {
+                int highIndex = _dataSequence.Length - i - 1;
+                // find difference between pairs
+                int pairDiff = (_dataSequence[highIndex] - _dataSequence[i]);
+
+                // flip sign if set to Large
+                if (_currentState == FilterState.Small)
+                {
+                    pairDiff = -pairDiff;
+                }
+
+                // swap if the diff is greater than 0
+                if (pairDiff > 0)
+                {
+                    int temp = _dataSequence[i];
+                    _dataSequence[i] = _dataSequence[highIndex];
+                    _dataSequence[highIndex] = temp;
+                }
+            }
+        }
+
+    }
+
 
 
 }
