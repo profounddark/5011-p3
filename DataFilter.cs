@@ -1,10 +1,19 @@
 class DataFilter
 {
+
+    /// <summary>
+    /// A enum for tracking the state of a DataFilter object. Consists
+    /// of two states: Large or Small.
+    /// </summary>
     protected enum FilterState
     {
         Large,
         Small
     }
+
+    /// <summary>
+    /// The default prime number for instancing a new DataFilter object.
+    /// </summary>
     protected const uint DefaultPrimeNumber = 97;
 
     protected uint _primeNumber;
@@ -34,7 +43,7 @@ class DataFilter
     }
 
     /// <summary>
-    /// Constructor for DataFilter. Accepts a positive prime integer as the
+    /// Constructor for DataFilter object. Accepts a positive prime integer as the
     /// encapsulated prime number. If the integer is not provided, falls back
     /// to a default value.
     /// </summary>

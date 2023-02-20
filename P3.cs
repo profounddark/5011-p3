@@ -20,6 +20,7 @@ class P3
 
         TestFilter(testFilter);
 
+
         testFilter.scramble(new int[] { 100, 90, 60, 70, 50, 120 });
         TestFilter(testFilter);
         testFilter.FlipState();

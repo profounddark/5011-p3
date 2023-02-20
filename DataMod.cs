@@ -2,6 +2,13 @@ class DataMod : DataFilter
 {
     const int OverrideValue = 2;
 
+    /// <summary>
+    /// Constructor for DataMod object. Accepts a positive prime integer as the
+    /// encapsulated prime number. If the integer is not provided, falls back
+    /// to a default value.
+    /// </summary>
+    /// <param name="newPrime">the positive prime integer to be encapsulated
+    /// by the DataMod object</param>
     public DataMod(uint newPrime = DefaultPrimeNumber) : base(newPrime) { }
 
 
