@@ -53,7 +53,7 @@ class DataMod : DataFilter
         // if no new sequence
         if (newSequence == null)
         {
-            // use the existing sequence
+            // use reference to existing sequence
             newSequence = _dataSequence;
         }
 
