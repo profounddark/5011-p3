@@ -179,7 +179,9 @@ class DataFilter
     /// </summary>
     /// <param name="newSequence">a new integer array to assign to the DataFilter
     /// object</param>
-    public virtual void scramble(int[]? newSequence = null)
+    /// <returns>the reordered array of values encapsulated by the DataFilter
+    /// object after being processed by the scrambler.</returns>
+    public virtual int[]? scramble(int[]? newSequence = null)
     {
         // set the new sequence if it's valid
         if (newSequence != null)
@@ -210,6 +212,8 @@ class DataFilter
                 }
             }
         }
+
+        return _dataSequence;
 
     }
 

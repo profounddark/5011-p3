@@ -38,7 +38,17 @@ class DataMod : DataFilter
     }
 
 
-    public override void scramble(int[]? newSequence = null)
+    /// <summary>
+    /// scramble assigns a new sequence to the DataMod object, if one is provided.
+    /// It then proceeds to scramble the values in the DataFilter object based on
+    /// the current state of the object. Any values in the sequence that are
+    /// prime numbers are replaced with a specified override value.
+    /// </summary>
+    /// <param name="newSequence">a new integer array to assign to the DataMod
+    /// object</param>
+    /// <returns>the reordered array of values encapsulated by the DataMod
+    /// object after being processed by the scrambler.</returns>
+    public override int[]? scramble(int[]? newSequence = null)
     {
         // if no new sequence
         if (newSequence == null)
@@ -61,6 +71,6 @@ class DataMod : DataFilter
             }
         }
         // run original scrambler
-        base.scramble(newSequence);
+        return base.scramble(newSequence);
     }
 }
