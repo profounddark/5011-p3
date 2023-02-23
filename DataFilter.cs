@@ -17,7 +17,7 @@ class DataFilter
     protected const uint DefaultPrimeNumber = 97;
 
     protected uint _primeNumber;
-    protected int[]? _dataSequence;
+    protected int[] _dataSequence;
 
     protected FilterState _currentState;
 
@@ -58,8 +58,10 @@ class DataFilter
             _primeNumber = DefaultPrimeNumber;
         }
 
-        // "null" value for sequence is a 0 length array
-        _dataSequence = null;
+        // "null" value for sequence is an empty array
+        // NOTE: an array is a non-nullable reference type so this program
+        // uses empty Arrays to represent no value assigned.
+        _dataSequence = Array.Empty<int>();
 
         // set to a State of "Large"
         _currentState = FilterState.Large;
@@ -90,7 +92,9 @@ class DataFilter
     /// <summary>
     /// SetSequence sets the data sequence for the DataFilter object.
     /// </summary>
-    /// <param name="newSequence">the new integer sequence to set</param>
+    /// <param name="newSequence">the new integer sequence to set. This cannot
+    /// be null (as the array is a non-nullable reference type), but it can
+    /// be an Empty Array.</param>
     public void SetSequence(int[] newSequence)
     {
         _dataSequence = newSequence;
@@ -127,8 +131,16 @@ class DataFilter
     /// DataFilter object.</returns>
     public virtual int[] filter()
     {
+        // does not have an embedded sequence
+        if (_dataSequence.Length == 0)
+        {
+            int[] returnArray = new int[1];
+            returnArray[0] = (int)_primeNumber;
+            return returnArray;
+        }
+
         // if it has an embedded sequence
-        if (_dataSequence != null)
+        else
         {
             int[] returnArray = new int[_dataSequence.Length];
             int itemCount = 0;
@@ -161,35 +173,18 @@ class DataFilter
 
             return returnArray;
         }
-        // does not have an embedded sequence
-        else
-        {
 
-            int[] returnArray = new int[1];
-            returnArray[0] = (int)_primeNumber;
-            return returnArray;
 
-        }
     }
 
     /// <summary>
-    /// scramble assigns a new sequence to the DataFilter object, if one is provided.
-    /// It then proceeds to scramble the values in the DataFilter object based on
-    /// the current state of the object.
+    /// 
     /// </summary>
-    /// <param name="newSequence">a new integer array to assign to the DataFilter
-    /// object</param>
-    /// <returns>the reordered array of values encapsulated by the DataFilter
-    /// object after being processed by the scrambler.</returns>
-    public virtual int[]? scramble(int[]? newSequence = null)
+    /// <returns>the scrambled sequence. If the DataFilter object had
+    /// no encapsulated sequence, returns an empty array.</returns>
+    public virtual int[] scramble()
     {
-        // set the new sequence if it's valid
-        if (newSequence != null)
-        {
-            _dataSequence = newSequence;
-        }
-
-        if (_dataSequence != null)
+        if (_dataSequence.Length != 0)
         {
             for (int i = 0; i < _dataSequence.Length / 2; i++)
             {
@@ -214,6 +209,25 @@ class DataFilter
         }
 
         return _dataSequence;
+
+    }
+
+    /// <summary>
+    /// scramble assigns a new sequence to the DataFilter object. It then proceeds
+    /// to scramble the values in the DataFilter object based on the current state
+    /// of the object.
+    /// </summary>
+    /// <param name="newSequence">a new integer array to assign to the DataFilter
+    /// object</param>
+    /// <returns>the reordered array of values encapsulated by the DataFilter
+    /// object after being processed by the scrambler. If the DataFilter object had
+    /// no encapsulated sequence, returns an empty array.</returns>
+    public virtual int[] scramble(int[] newSequence)
+    {
+        // set the encapsulated sequence to the provided
+        _dataSequence = newSequence;
+
+        return this.scramble();
 
     }
 
