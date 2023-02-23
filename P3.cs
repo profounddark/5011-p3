@@ -67,11 +67,11 @@ class P3
 
     public static void Main(String[] args)
     {
-        DataFilter testFilter = new DataFilter(89);
+        DataMod testFilter = new DataMod(89);
 
         TestFilter(testFilter);
         TestScramble(testFilter);
-        TestScrambleArray(testFilter, new int[] { 100, 60, 70, 110 });
+        TestScrambleArray(testFilter, new int[] { 100, 67, 70, 109 });
 
         TestFilter(testFilter);
 

@@ -178,7 +178,8 @@ class DataFilter
     }
 
     /// <summary>
-    /// 
+    /// scramble proceeds to scramble the values in the DataFilter object
+    /// based on the current state of the object.
     /// </summary>
     /// <returns>the scrambled sequence. If the DataFilter object had
     /// no encapsulated sequence, returns an empty array.</returns>
