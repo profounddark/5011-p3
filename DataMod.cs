@@ -38,12 +38,13 @@ class DataMod : DataFilter
     }
 
     /// <summary>
-    /// scramble proceeds to scramble the values in the DataFilter object based on
-    /// the current state of the object. Any values in the sequence that are
-    /// prime numbers are replaced with a specified override value.
+    /// scramble replaces any value in the encapsulated sequence
+    /// that are prime numbers with a specified override value.
+    /// It then creates a scramble of the values in the DataMod
+    /// object based on the current state of the object.
     /// </summary>
-    /// <returns>the reordered array of values encapsulated by the DataMod
-    /// object after being processed by the scrambler.</returns>
+    /// <returns>the scrambled sequence. If the DataFilter object had
+    /// no encapsulated sequence, returns an empty array.</returns>
     public override int[] scramble()
     {
         // if there is a sequence

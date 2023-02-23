@@ -3,7 +3,7 @@ class DataCut : DataFilter
     /// <summary>
     /// The sequence that was previously scrambled.
     /// </summary>
-    private int[] _previousSequence = new int[0];
+    private int[] _previousSequence;
 
     /// <summary>
     /// findMinIndex finds the index of the minimum
@@ -50,7 +50,18 @@ class DataCut : DataFilter
         return maxIndex;
     }
 
-    public DataCut(uint newPrime = DefaultPrimeNumber) : base(newPrime) { }
+    /// <summary>
+    /// Constructor for DataCut object. Accepts a positive prime integer as the
+    /// encapsulated prime number. If the integer is not provided, falls back
+    /// to a default value.
+    /// </summary>
+    /// <param name="newPrime">A positive, prime integer to encapsulate in the
+    /// DataFilter object.</param>
+    public DataCut(uint newPrime = DefaultPrimeNumber) : base(newPrime)
+    {
+        // set previous search array to empty
+        _previousSequence = Array.Empty<int>();
+    }
 
     /// <summary>
     /// filter() returns an array of values depending on the state of the DataCut
@@ -97,31 +108,41 @@ class DataCut : DataFilter
         return outputArray;
     }
 
-    public override int[]? scramble(int[]? newSequence = null)
+    /// <summary>
+    /// scramble clears the sequence encapsulated in the DataCut object of any
+    /// values that appeared in the last scramble output. It then proceeds
+    /// to create a scramble of the remaining values in the DataCut object
+    /// based on the current state of the object.
+    /// </summary>
+    /// <returns>the scrambled sequence. If the DataCut object had
+    /// no encapsulated sequence, returns an empty array.</returns>
+    public override int[] scramble()
     {
-        if (newSequence == null)
+        if (_dataSequence.Length != 0)
         {
-            newSequence = _dataSequence;
-        }
+            int[] newSequence = new int[_dataSequence.Length];
+            int newCount = 0;
 
-        for (int i = 0; i < newSequence.Length; i++)
-        {
-            for (int j = 0; j < _previousSequence.Length; j++)
+            for (int i = 0; i < _dataSequence.Length; i++)
             {
-
+                // if the current value is not in the previous sequence
+                if (Array.IndexOf(_previousSequence, _dataSequence[i]) < 0)
+                {
+                    // add it to the "new" sequence
+                    newSequence[newCount] = _dataSequence[i];
+                    newCount++;
+                }
             }
+            // shrink the new array
+            Array.Resize(ref newSequence, newCount);
+
+            _dataSequence = newSequence;
         }
 
-        // do stuff
-        // I have not done stuff yet
 
-        newSequence = base.scramble(newSequence);
-
-        _previousSequence = newSequence;
-
-        return newSequence;
+        _previousSequence = base.scramble();
+        return _previousSequence;
 
     }
-
-
 }
+

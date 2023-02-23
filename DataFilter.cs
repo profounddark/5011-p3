@@ -178,45 +178,46 @@ class DataFilter
     }
 
     /// <summary>
-    /// scramble proceeds to scramble the values in the DataFilter object
-    /// based on the current state of the object.
+    /// scramble proceeds to create a scramble of the values in the
+    /// DataFilter object based on the current state of the object.
     /// </summary>
     /// <returns>the scrambled sequence. If the DataFilter object had
     /// no encapsulated sequence, returns an empty array.</returns>
     public virtual int[] scramble()
     {
-        if (_dataSequence.Length != 0)
+
+        int[] newSequence = new int[_dataSequence.Length];
+        _dataSequence.CopyTo(newSequence, 0);
+
+        for (int i = 0; i < newSequence.Length / 2; i++)
         {
-            for (int i = 0; i < _dataSequence.Length / 2; i++)
+            int highIndex = newSequence.Length - i - 1;
+            // find difference between pairs
+            int pairDiff = (newSequence[highIndex] - newSequence[i]);
+
+            // flip sign if set to Large
+            if (_currentState == FilterState.Small)
             {
-                int highIndex = _dataSequence.Length - i - 1;
-                // find difference between pairs
-                int pairDiff = (_dataSequence[highIndex] - _dataSequence[i]);
+                pairDiff = -pairDiff;
+            }
 
-                // flip sign if set to Large
-                if (_currentState == FilterState.Small)
-                {
-                    pairDiff = -pairDiff;
-                }
-
-                // swap if the diff is greater than 0
-                if (pairDiff > 0)
-                {
-                    int temp = _dataSequence[i];
-                    _dataSequence[i] = _dataSequence[highIndex];
-                    _dataSequence[highIndex] = temp;
-                }
+            // swap if the diff is greater than 0
+            if (pairDiff > 0)
+            {
+                int temp = newSequence[i];
+                newSequence[i] = newSequence[highIndex];
+                newSequence[highIndex] = temp;
             }
         }
 
-        return _dataSequence;
+        return newSequence;
 
     }
 
     /// <summary>
     /// scramble assigns a new sequence to the DataFilter object. It then proceeds
-    /// to scramble the values in the DataFilter object based on the current state
-    /// of the object.
+    /// to create a scramble of the values in the DataFilter object based on the
+    /// current state of the object.
     /// </summary>
     /// <param name="newSequence">a new integer array to assign to the DataFilter
     /// object</param>

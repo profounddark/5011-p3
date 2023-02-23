@@ -67,13 +67,17 @@ class P3
 
     public static void Main(String[] args)
     {
-        DataMod testFilter = new DataMod(89);
+        DataFilter testFilter = new DataCut(89);
 
         TestFilter(testFilter);
         TestScramble(testFilter);
-        TestScrambleArray(testFilter, new int[] { 100, 67, 70, 109 });
+        TestScrambleArray(testFilter, new int[] { 109, 70, 67, 100 });
 
         TestFilter(testFilter);
+
+        testFilter.FlipState();
+        TestScrambleArray(testFilter, new int[] { 109, 70, 67, 105 });
+
 
 
 
