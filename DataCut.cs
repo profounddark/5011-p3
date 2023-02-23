@@ -1,3 +1,16 @@
+/// <summary>
+/// The DataCut class is a derived class from the DataFilter class. Although it
+/// replicates the structure of the original class, two of the significant
+/// methods of the class have changed: filter and scramble.
+/// 
+/// The filter method replicates the function of the DataFilter method but
+/// removes a single value from the resulting array depending on the state
+/// of the DataCut object.
+/// 
+/// The scramble method replicates the function of the DataFilter method
+/// but, prior to scrambling, removes all elements from the encapsulated
+/// sequence that were in the previous output of the scramble method.
+/// </summary>
 class DataCut : DataFilter
 {
     /// <summary>

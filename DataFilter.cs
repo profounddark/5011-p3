@@ -1,3 +1,21 @@
+/// <summary>
+/// The DataFilter class creates a mysterious object with two principal
+/// methods: filter and scramble. The object encapsulates a prime number,
+/// specified at instantiation, that provides mysterious insight to the
+/// class.
+/// 
+/// The class utilizes an Array of integers as a data sequence. This sequence
+/// is used by the main methods, filter and scramble, to create new
+/// Arrays of integers. The Array is "loaded" into the class via one of
+/// two methods: the SetSequence method (which sets the sequence with
+/// no other action); and the scramble method. The scramble method sets
+/// the new sequence (if provided) and then creates a scramble based
+/// on the encapsulated sequence.
+/// 
+/// The class maintains a state of Large or Small, which dictates certain
+/// behaviors in the filter and scramble methods. This state starts as
+/// Large and can be changed via the FlipState method.
+/// </summary>
 class DataFilter
 {
 

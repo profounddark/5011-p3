@@ -2,6 +2,11 @@
 
 class P3
 {
+    /// <summary>
+    /// TestFilter tests a DataFilter object's filter() method.
+    /// </summary>
+    /// <param name="testObj">the DataFilter object (or child object)
+    /// to test</param>
     public static void TestFilter(DataFilter testObj)
     {
         Console.Write("testing filter(): ");
@@ -23,6 +28,11 @@ class P3
         Console.WriteLine("Testing complete");
     }
 
+    /// <summary>
+    /// TestScramble tests a DataFilter object's scramble method
+    /// </summary>
+    /// <param name="testObj">the DataFilter object (or child object)
+    /// to test</param>
     public static void TestScramble(DataFilter testObj)
     {
         Console.Write("testing scramble(): ");
@@ -44,6 +54,13 @@ class P3
         Console.WriteLine("Testing complete");
     }
 
+    /// <summary>
+    /// TestScramble tests a DataFilter object's scramble method
+    /// </summary>
+    /// <param name="testObj">the DataFilter object (or child object)
+    /// to test</param>
+    /// <param name="testArray">the test array to pass to the scramble
+    /// method</param>
     public static void TestScrambleArray(DataFilter testObj, int[] testArray)
     {
         Console.Write("testing scramble(): ");
@@ -65,9 +82,10 @@ class P3
         Console.WriteLine("Testing complete");
     }
 
+
     public static void Main(String[] args)
     {
-        DataFilter testFilter = new DataCut(89);
+        DataMod testFilter = new DataMod(89);
 
         TestFilter(testFilter);
         TestScramble(testFilter);

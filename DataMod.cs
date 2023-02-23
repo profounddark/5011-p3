@@ -1,3 +1,16 @@
+/// <summary>
+/// The DataMod class is a derived class from the DataFilter class. Although it
+/// replicates the structure of the original class, two of the significant
+/// methods of the class have changed: filter and scramble.
+/// 
+/// The filter method replicates the function of the DataFilter method but
+/// increments or decrements the resulting array based on the state of
+/// the DataMod object.
+/// 
+/// The scramble method replicates the function of the DataFilter method
+/// but, prior to scrambling, replaces all of the values in the encapsulated
+/// array that are prime numbers with a designated Override value.
+/// </summary>
 class DataMod : DataFilter
 {
     const int OverrideValue = 2;
