@@ -43,7 +43,7 @@ class DataFilter
     /// <summary>
     /// isPrime determines whether or not the given positive integer is a prime number
     /// or not (i.e., a whole number greater than one that cannot be exactly divided by
-    /// any whoel number other than itself)
+    /// any whole number other than itself)
     /// </summary>
     /// <param name="testNumber">the positive integer to be tested</param>
     /// <returns><c>true</c> if the number is prime, <c>false</c> otherwise</returns>

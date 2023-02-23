@@ -2,6 +2,9 @@
 
 class P3
 {
+
+    const int TestSize = 10;
+
     /// <summary>
     /// TestFilter tests a DataFilter object's filter() method.
     /// </summary>
@@ -83,22 +86,72 @@ class P3
     }
 
 
+
+    /// <summary>
+    /// CreateHeteroCollection makes a heterogenous collection of DataFilter objects
+    /// for testing.
+    /// </summary>
+    /// <param name="size">size of the array, defaults to TestSize</param>
+    /// <param name="offset">an offset, used to mix up the array!</param>
+    /// <returns></returns>
+    public static DataFilter[] CreateHeteroCollection(int size = TestSize, int offset = 0)
+    {
+        DataFilter[] filterArray = new DataFilter[TestSize];
+
+        for (int i = offset; i < filterArray.Length + offset; i++)
+        {
+            if (i % 3 == 2)
+            {
+                filterArray[i - offset] = new DataCut((uint)i * 15);
+            }
+            else if (i % 3 == 1)
+            {
+                filterArray[i - offset] = new DataMod((uint)i * 10);
+            }
+            else
+            {
+                filterArray[i - offset] = new DataFilter((uint)(i * 20));
+            }
+        }
+
+        return filterArray;
+    }
+
+    public static void HeteroTest(int size)
+    {
+        int[] TestArray = { 10, 20, 35, 100, 51, 150, 19, 200, 95, 300, 125, 89, 111, 273 };
+
+        Console.WriteLine("Creating a hetereogenous collection of size " + size + " for testing:");
+        DataFilter[] filterArray = CreateHeteroCollection(size, 2);
+
+        Console.WriteLine("Embedding integer sequences.");
+        for (int i = 0; i < size; i++)
+        {
+            int[] newArray = new int[TestArray.Length];
+            TestArray.CopyTo(newArray, 0);
+            filterArray[i].SetSequence(TestArray);
+        }
+        Console.WriteLine("Testing filters:");
+        for (int i = 0; i < size; i++)
+        {
+            Console.WriteLine("Testing Filter on object #" + i + ":");
+            TestFilter(filterArray[i]);
+            Console.WriteLine("Flipping state...");
+            filterArray[i].FlipState();
+            TestFilter(filterArray[i]);
+            Console.Write("\n");
+        }
+
+
+
+
+
+    }
+
     public static void Main(String[] args)
     {
-        DataMod testFilter = new DataMod(89);
 
-        TestFilter(testFilter);
-        TestScramble(testFilter);
-        TestScrambleArray(testFilter, new int[] { 109, 70, 67, 100 });
-
-        TestFilter(testFilter);
-
-        testFilter.FlipState();
-        TestScrambleArray(testFilter, new int[] { 109, 70, 67, 105 });
-
-
-
-
+        HeteroTest(10);
     }
 }
 
