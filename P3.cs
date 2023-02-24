@@ -242,7 +242,6 @@ class P3
         TestCutObject();
         Console.WriteLine("* * * * * * * * * *\n");
 
-
         HeteroTest(10);
     }
 }
